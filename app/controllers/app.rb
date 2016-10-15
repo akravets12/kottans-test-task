@@ -8,12 +8,12 @@ class SafeMessagingApp < Sinatra::Base
   set :public_folder, Proc.new { File.join(Dir.pwd, "public") }
   register Sinatra::ActiveRecordExtension
   get '/' do
-    haml :index, locals: { root: settings.root }
+    haml :index, locals: { flash: nil, message: nil }
   end
 
   post '/' do
+    message = Message.new message: params[:message], link: Digest::MD5.hexdigest(Time.new.to_i.to_s)
     begin
-      message = Message.new message: params[:message], link: Digest::MD5.hexdigest(Time.new.to_i.to_s)
       message.save!
       flash = { message: "ok" }
       status 201
@@ -21,7 +21,7 @@ class SafeMessagingApp < Sinatra::Base
       flash = { error: "error while creating message" }
       status 204
     end
-    haml :index, locals: {flash: flash}
+    haml :index, locals: {flash: flash, message: message, host: request.host_with_port}
   end
   get '/message/:link' do
     message = Message.find_by_link(params[:link])
