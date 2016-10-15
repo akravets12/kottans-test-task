@@ -23,6 +23,7 @@ GEM
     json (1.8.3)
     minitest (5.9.1)
     mysql2 (0.4.4)
+    pg (0.19.0)
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
@@ -61,6 +62,7 @@ DEPENDENCIES
   activerecord (< 5.0.0)
   haml
   mysql2
+  pg
   rack-test
   rake
   rspec
