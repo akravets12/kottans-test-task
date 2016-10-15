@@ -15,6 +15,8 @@ describe "My Sinatra Application" do
     expect(last_count + 1).to eq(Message.count)
   end
   it "sould show a message" do
-    
+    message = Message.create message: "some text here", link: Digest::MD5.hexdigest(Time.new.to_i.to_s)
+    get "/message/#{message.link}"
+    expect(last_response).to be_ok
   end
 end

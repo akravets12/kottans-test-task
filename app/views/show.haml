@@ -1,0 +1,15 @@
+!!!
+%html
+  %head
+    %meta{:content => 'text/html; charset=UTF-8', 'http-equiv' => 'Content-Type'}
+    %meta{:charset => 'utf-8'}
+    %meta{:content => 'ie=edge', 'http-equiv' => 'x-ua-compatible'}
+    %title SafeMessaging
+    %meta{:content => '', :name => 'description'}
+    %meta{:content => 'width=device-width, initial-scale=1', :name => 'viewport'}
+    %link{:href => "/css/lib/bootstrap.min.css", :rel => 'stylesheet'}
+  %body
+    .main-wrapper
+      .row
+        .inner-wraper.col-xs-12.col-md-10.col-lg-4.col-lg-offset-4
+          %p = message
