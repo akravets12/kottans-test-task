@@ -9,4 +9,9 @@ describe "My Sinatra Application" do
     post '/'
     expect(last_response.status).to eq(204)
   end
+  it "should create message" do
+    last_count = Message.count
+    post '/', message: "some message"
+    expect(last_count + 1).to eq(Message.count)
+  end
 end
