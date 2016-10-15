@@ -25,8 +25,8 @@ class SafeMessagingApp < Sinatra::Base
   end
   get '/message/:link' do
     message = Message.find_by_link(params[:link])
-    if message
-      haml :show, locals: {message: message}
+    if !message.nil?
+      haml :show, locals: {message: message.message}
     else
       status 404
     end
