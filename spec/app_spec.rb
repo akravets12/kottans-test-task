@@ -7,6 +7,6 @@ describe "My Sinatra Application" do
   end
   it "should not allow empty message" do
     post '/'
-    expect(last_response.status).to eq(200)
+    expect(last_response.status).to eq(204)
   end
 end
