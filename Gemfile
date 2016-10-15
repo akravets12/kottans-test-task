@@ -4,7 +4,7 @@ gem 'haml'
 gem 'activerecord', '< 5.0.0'
 gem "sinatra-activerecord"
 gem 'mysql2'
-#gem 'pg'
+gem 'pg'
 gem 'rack-test'
 gem 'rspec'
 gem 'rake'
