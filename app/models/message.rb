@@ -1,5 +1,5 @@
 require "sinatra/activerecord"
 
 class Message < ActiveRecord::Base
-  validates :message, presence: true
+  validates :message, :link, presence: true
 end

@@ -14,7 +14,8 @@
 ActiveRecord::Schema.define(version: 20161015023829) do
 
   create_table "messages", force: :cascade do |t|
-    t.text "message", limit: 65535
+    t.text   "message", limit: 65535
+    t.string "link",    limit: 255
   end
 
 end

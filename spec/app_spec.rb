@@ -14,4 +14,7 @@ describe "My Sinatra Application" do
     post '/', message: "some message"
     expect(last_count + 1).to eq(Message.count)
   end
+  it "sould show a message" do
+    
+  end
 end

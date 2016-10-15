@@ -1,6 +1,7 @@
 require 'sinatra/base'
 require_relative '../models/message.rb'
 require "sinatra/activerecord"
+require "digest/md5"
 class SafeMessagingApp < Sinatra::Base
   set :haml, :format => :html5
   set :views, File.join(Dir.pwd, 'app', 'views')
@@ -12,7 +13,7 @@ class SafeMessagingApp < Sinatra::Base
 
   post '/' do
     begin
-      message = Message.new message: params[:message]
+      message = Message.new message: params[:message], link: Digest::MD5.hexdigest(Time.new.to_i.to_s)
       message.save!
       flash = { message: "ok" }
       status 201
