@@ -46,7 +46,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  adapter: postgresql
+  adapter: mysql2
   encoding: utf8
   database: safe_messaging_test
   username: developer

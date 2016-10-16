@@ -12,7 +12,9 @@ class SafeMessagingApp < Sinatra::Base
   end
 
   post '/' do
-    message = Message.new message: params[:message], link: Digest::MD5.hexdigest(Time.new.to_i.to_s)
+    message = Message.new message: params[:message],
+                          link: Digest::MD5.hexdigest(Time.new.to_i.to_s),
+                          destruction_delay: params[:destroy_delay]
     begin
       message.save!
       flash = { message: "ok" }
@@ -28,14 +30,23 @@ class SafeMessagingApp < Sinatra::Base
     if !@message.nil?
       haml :show, locals: {message: @message.message}
     else
-      status 404
+      redirect_to_404
     end
   end
   after '/message/:link' do
+    @message.delete if(!@message.nil? && @message.destruction_delay == 0)
+  end
+  after '/', method: :post do
     Thread.new do
-      sleep 1.hour
-      @message.delete
+      if(@message.destruction_delay == 1)
+        sleep 30.seconds
+        @message.delete
+      end
     end
+  end
+
+  def redirect_to_404
+    redirect "http://#{request.host_with_port}/404.html"
   end
 
 end

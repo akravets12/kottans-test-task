@@ -15,7 +15,12 @@
           %form{ method: "POST", action: "/"}
             %h1 Enter Your message
             %textarea.form-control{ name: "message" }
-            %br
+            %p
+              Destroy:
+              %label.radio-inline{for: "instant-destroy"} after visit
+              %input{name: "destroy_delay", value:"0", id:"instant-destroy", type:'radio', checked:'checked'}
+              %label.radio-inline{for: "destroy-in-hour"} in an hour
+              %input{name: "destroy_delay", value:"1", id:"destroy-in-hour", type:'radio'}
             %button.btn.btn-success.form-control Submit
           -if !message.nil? && message.valid?
             %h3 Here is a link for your message:
