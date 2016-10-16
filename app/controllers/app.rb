@@ -13,6 +13,11 @@ class SafeMessagingApp < Sinatra::Base
   end
 
   post '/' do
+    if !params[:message] then
+      status 204
+      haml :index, locals: {flash: {error: "message must be not empty"}, message: nil}
+      return
+    end
     password = AES.key
     text = AES.encrypt params[:message], password
     message = Message.new message: text,

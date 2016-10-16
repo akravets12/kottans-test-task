@@ -1,7 +1,12 @@
 require File.expand_path '../spec_helper.rb', __FILE__
 
 def create_message
-  Message.create message: "some text here", link: Digest::MD5.hexdigest(Time.new.to_i.to_s), destruction_delay: 0
+  password = AES.key
+  text = AES.encrypt "some text here", password
+  Message.new message: text,
+                        link: Digest::MD5.hexdigest(Time.new.to_i.to_s),
+                        destruction_delay: 0,
+                        password: password
 end
 
 describe "My Sinatra Application" do
