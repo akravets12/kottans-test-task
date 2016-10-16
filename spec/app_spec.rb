@@ -9,6 +9,8 @@ def create_message
                         password: password
 end
 
+#TODO: make delete-in-hour, encrypted message tests
+
 describe "My Sinatra Application" do
   it "should allow accessing the home page" do
     get '/'

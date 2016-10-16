@@ -43,6 +43,12 @@ class SafeMessagingApp < Sinatra::Base
       redirect_to_404
     end
   end
+
+  not_found do
+    status 404
+    haml "%h1 Page not found"
+  end
+
   after '/message/:link' do
     @message.delete if(!@message.nil? && @message.destruction_delay == 0)
   end
