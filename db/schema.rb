@@ -11,11 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161015023829) do
+ActiveRecord::Schema.define(version: 20161016190003) do
 
   create_table "messages", force: :cascade do |t|
-    t.text   "message", limit: 65535
-    t.string "link",    limit: 255
+    t.text    "message",            limit: 65535
+    t.string  "link",               limit: 255
+    t.integer "destruction_delay",  limit: 4
+    t.integer "password",           limit: 4
+    t.integer "destruction_visits", limit: 4
   end
 
 end

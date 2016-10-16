@@ -24,11 +24,17 @@ class SafeMessagingApp < Sinatra::Base
     haml :index, locals: {flash: flash, message: message, host: request.host_with_port}
   end
   get '/message/:link' do
-    message = Message.find_by_link(params[:link])
-    if !message.nil?
-      haml :show, locals: {message: message.message}
+    @message = Message.find_by_link(params[:link])
+    if !@message.nil?
+      haml :show, locals: {message: @message.message}
     else
       status 404
+    end
+  end
+  after '/message/:link' do
+    Thread.new do
+      sleep 1.hour
+      @message.delete
     end
   end
 
