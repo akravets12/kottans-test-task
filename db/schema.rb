@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 20161016190003) do
     t.text    "message",            limit: 65535
     t.string  "link",               limit: 255
     t.integer "destruction_delay",  limit: 4
-    t.integer "password",           limit: 4
+    t.string  "password",           limit: 255
     t.integer "destruction_visits", limit: 4
   end
 

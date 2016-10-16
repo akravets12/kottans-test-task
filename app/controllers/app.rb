@@ -2,6 +2,7 @@ require 'sinatra/base'
 require_relative '../models/message.rb'
 require "sinatra/activerecord"
 require "digest/md5"
+require "aes"
 class SafeMessagingApp < Sinatra::Base
   set :haml, :format => :html5
   set :views, File.join(Dir.pwd, 'app', 'views')
@@ -12,9 +13,12 @@ class SafeMessagingApp < Sinatra::Base
   end
 
   post '/' do
-    message = Message.new message: params[:message],
+    password = AES.key
+    text = AES.encrypt params[:message], password
+    message = Message.new message: text,
                           link: Digest::MD5.hexdigest(Time.new.to_i.to_s),
-                          destruction_delay: params[:destroy_delay]
+                          destruction_delay: params[:destroy_delay],
+                          password: password
     begin
       message.save!
       flash = { message: "ok" }
@@ -28,7 +32,8 @@ class SafeMessagingApp < Sinatra::Base
   get '/message/:link' do
     @message = Message.find_by_link(params[:link])
     if !@message.nil?
-      haml :show, locals: {message: @message.message}
+      text = AES.decrypt @message.message, @message.password
+      haml :show, locals: {message: text}
     else
       redirect_to_404
     end

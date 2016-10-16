@@ -23,7 +23,7 @@ describe "My Sinatra Application" do
     get "/message/#{message.link}"
     expect(last_response).to be_ok
   end
-  it "sould delete a message after visit" do
+  it "should delete a message after visit" do
     message = create_message
     get "/message/#{message.link}"
     next_try_message = nil
